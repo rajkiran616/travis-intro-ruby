@@ -1,2 +1,8 @@
 language: ruby
 script: ruby test/test_server.rb
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: lib/server.rb
+  on:
+    tags: true
