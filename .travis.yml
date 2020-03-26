@@ -1,1 +1,21 @@
 language: ruby
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID='7c199d467415649162475fc92f32e219b68a53b3b69893f81416e036e3824ecf'
+
+rvm:
+  - 2.2.0
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script: ruby test/test_server.rb
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: lib/server.rb
+  on:
+    tags: true
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
