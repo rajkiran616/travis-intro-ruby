@@ -2,6 +2,8 @@ require 'test/unit'
 require 'thread'
 require 'socket'
 require_relative '../lib/server'
+require 'simplecov'
+SimpleCov.start 'rails'
 
 class TestMyServer < Test::Unit::TestCase
   def test_server
